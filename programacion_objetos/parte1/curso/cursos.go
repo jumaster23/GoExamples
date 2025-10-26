@@ -4,7 +4,7 @@ import(
 	"fmt"
 )
 
-type Curso struct {
+type curso struct {
 	Name    string
 	Precio  float64
 	IsFree  bool
@@ -12,7 +12,16 @@ type Curso struct {
 	Classes map[uint]string
 }
 
-func (c *Curso) PrintClasses(){
+func New(name string, precio float64, isfree bool)*curso{
+	if precio == 0{ precio = 30}
+	return &curso{
+		Name: name,
+		Precio: precio,
+		IsFree: isfree,
+	}
+}
+
+func (c *curso) PrintClasses(){
 	text := "Las clases son: "
 	for _, class := range c.Classes{
 		text += class + ", "
@@ -20,7 +29,7 @@ func (c *Curso) PrintClasses(){
 	fmt.Println(text[:len(text)-2])
 }
 
-func (c *Curso) Changeprices(price float64){
+func (c *curso) Changeprices(price float64){
 	c.Precio = price
 
 }
