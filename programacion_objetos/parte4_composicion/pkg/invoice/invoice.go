@@ -23,10 +23,6 @@ func New(country, ciudad string, client customer.Customer, items []invoiceitem.I
 	}
 }
 
-
-
-
-
 // settotal is the setter of Invoice.total
 func (i *Invoice) Settotal(){
 	for _, item := range i.items{
