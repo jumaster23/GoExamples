@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"math"
+	"time"
 )
 
 // Definimos la estructura
@@ -95,7 +95,7 @@ func (p Prestaciones) CalcularVacaciones() float64 {
 	vacaciones := 0.0
 	anos := p.FechaSalida.Year() - p.FechaEntrada.Year()
 	meses := p.FechaSalida.Month() - p.FechaEntrada.Month()
-
+	
 	mascincomeses := 6
 	masdeseis := 7
 	masdesiete := 8
@@ -134,38 +134,42 @@ func (p Prestaciones) CalcularVacaciones() float64 {
 func (p Prestaciones) CalculoRegalia() float64 {
 	var ano float64 = 12
 	regalia := 0.0
-	meses := p.FechaSalida.Month() - p.FechaEntrada.Month()
-	dias := float64(p.FechaSalida.Day() -p.FechaEntrada.Day())+1
-
+	iniciomes := float64(time.January)
+	
+	mesrecibido := float64(p.FechaSalida.Month())
+	dias := float64(p.FechaSalida.Day() -p.FechaEntrada.Day())+0.52
 	valorfloat := float64(dias) / 30
+	Total_tiempo := float64(float64(mesrecibido - iniciomes)+ float64(valorfloat))
 
+	
+	
+	fmt.Println("Total de meses: ",Total_tiempo)
+	
 
-	mesesdias := float64(meses) + valorfloat
-	fmt.Println(valorfloat)
-
-	if meses <= 12 {
-		regalia = (float64(mesesdias) * (p.Sueldo / ano)) 
+	if Total_tiempo <= 12 {
+		regalia = (float64(Total_tiempo) * (p.Sueldo / ano)) 
 	}
+	
 
 	return math.Round(regalia*100) / 100
 }
 
 func main() {
-	var name string
-	var fe string
-	var fs string
-	var sueldo float64
-	fmt.Println("Escribe tu nombre:")
-	fmt.Scanln(&name)
-	fmt.Println("Escribe tu Fecha de entrada dd-mm-aaaa:")
-	fmt.Scanln(&fe)
-	fmt.Println("Escribe tu Fecha de salida dd-mm-aaaa:")
-	fmt.Scanln(&fs)
-	fmt.Println("Escribe tu sueldo:")
-	fmt.Scanln(&sueldo)
+	// var name string
+	// var fe string
+	// var fs string
+	// var sueldo float64
+	// fmt.Println("Escribe tu nombre:")
+	// fmt.Scanln(&name)
+	// fmt.Println("Escribe tu Fecha de entrada dd-mm-aaaa:")
+	// fmt.Scanln(&fe)
+	// fmt.Println("Escribe tu Fecha de salida dd-mm-aaaa:")
+	// fmt.Scanln(&fs)
+	// fmt.Println("Escribe tu sueldo:")
+	// fmt.Scanln(&sueldo)
 
-	info := NewPrestaciones(name, fe, fs, sueldo)
-	//info := NewPrestaciones("manuel", "01-01-2025", "26-10-2025", 10000)
+	// info := NewPrestaciones(name, fe, fs, sueldo)
+	info := NewPrestaciones("manuel", "01-10-2024", "15-10-2025", 25000)
 	preaviso := info.CalcularPreaviso()
 	cesantia := info.CalcularCesantia()
 	vacaciones := info.CalcularVacaciones()
